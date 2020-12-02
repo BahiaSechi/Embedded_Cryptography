@@ -3,7 +3,7 @@
 # SECHI Bahia
 
 import math
-import utils
+from Crypto.Util import number
 
 
 class Point:
@@ -14,13 +14,14 @@ class Point:
 
     def toString(self):
         return "[{},{},{}]".format(self.x,self.y,self.z)
+    def __eq__(self, other):
+        if isinstance(other, Point):
+            return self.x == other.x and self.y == other.y and self.z == other.z
 
-#p = Point(1,2,3)
-#print(p.toString())
 
-def verifie_point(A,B,p,P):
-    res = (math.pow(P.x, 3) + A*P.x + B)%p
-    #print(res, math.pow(P.y, 2))
+def verifie_point(A, B, p, P):
+    res = (math.pow(P.x, 3) + A * P.x + B) % p
+    # print(res, math.pow(P.y, 2))
     return (res == P.y) or (P.z == 0)
 
 
@@ -35,7 +36,7 @@ def addition_points(A, B, p, P, Q):
         if P.x == Q.x:
             return point_infini.__dict__
         elif P.x != Q.x:
-            lamb = (Q.y - P.y) * utils.modular_inverse((Q.x - P.x), p)
+            lamb = (Q.y - P.y) * number.inverse((Q.x - P.x), p)
             X = lamb ** 2 - P.x - Q.x
             Y = lamb * (P.x - X) - P.y
             return Point(X, Y, 1).__dict__
@@ -43,7 +44,7 @@ def addition_points(A, B, p, P, Q):
         if P.y == 0:
             return point_infini.__dict__
         elif P.y != 0:
-            lamb = (3 * P.x ** 2 + A) * utils.modular_inverse((2 * P.y), p)
+            lamb = (3 * P.x ** 2 + A) * number.inverse((2 * P.y), p)
             X = lamb ** 2 - 2 * P.x
             Y = lamb * (P.x - X) - P.y
             return Point(X, Y, 1).__dict__
@@ -87,10 +88,11 @@ A = 3
 B = 2
 p = 5
 
-P1 = Point(2,1,1)
-Q1 = Point(2,4,1)
-point_infini = Point(0,0,0)
-print(addition_points(A,B,p,P1,Q1))
+P1 = Point(1, 4, 1)
+Q1 = Point(1, 4, 1)
+point_infini = Point(0, 0, 0)
+
+print(addition_points(A, B, p, P1, Q1))
 
 print("\nFonction groupe_des_points :")
 groupe_des_points(3,2,5)
