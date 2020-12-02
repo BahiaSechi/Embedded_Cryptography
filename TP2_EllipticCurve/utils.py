@@ -1,3 +1,13 @@
+"""
+ENSICAEN
+6 Boulevard Maréchal Juin
+F-14050 Caen Cedex
+This file is owned by ENSICAEN students.
+No portion of this document may be reproduced, copied or revised without written permission of the authors.
+Auteurs : SECHI Bahia & MORIN Maxence
+Date : 03/02/2019
+"""
+
 def extended_euclid(aa, bb):
     a, b = abs(aa), abs(bb)
     u0, u1 = 1, 0

@@ -22,26 +22,26 @@ def verifie_point(A, B, p, P):
 def addition_points(A, B, p, P, Q):
     point_infini = Point(0, 0, 0)
     if P.x == 0 and P.y == 0:
-        return Q
+        return Q.__dict__
     if Q.x == 0 and Q.y == 0:
-        return P
+        return P.__dict__
 
     if P != Q:
         if P.x == Q.x:
-            return print(point_infini)
+            return point_infini.__dict__
         elif P.x != Q.x:
             lamb = (Q.y - P.y) * utils.modular_inverse((Q.x - P.x), p)
             X = lamb ** 2 - P.x - Q.x
             Y = lamb * (P.x - X) - P.y
-            return print(Point(X, Y, 1))
+            return Point(X, Y, 1).__dict__
     elif P == Q:
         if P.y == 0:
-            return point_infini
+            return point_infini.__dict__
         elif P.y != 0:
             lamb = (3 * P.x ** 2 + A) * utils.modular_inverse((2 * P.y), p)
             X = lamb ** 2 - 2 * P.x
             Y = lamb * (P.x - X) - P.y
-            return print(Point(X, Y, 1))
+            return Point(X, Y, 1).__dict__
 
 
 def groupe_des_points(A, B, p):
@@ -64,7 +64,14 @@ P = Point(0, 0, 0)
 
 # print(verifie_point(3, 2, 5, P))
 
+A = 3
+B = 2
+p = 5
+
 P1 = Point(2,1,1)
 Q1 = Point(2,4,1)
+point_infini = Point(0,0,0)
 
-print(addition_points(3,2,5,P1,Q1))
+print(addition_points(A,B,p,P1,Q1))
+
+
