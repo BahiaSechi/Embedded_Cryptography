@@ -13,7 +13,12 @@ class Point:
         self.z = z
 
     def toString(self):
-        return "[{},{},{}]".format(self.x,self.y,self.z)
+        toto =""
+        toto = "[{},{},{}]".format(self.x,self.y,self.z)
+        return toto
+
+#p = Point(1,2,3)
+#print(p.toString())
 
 def verifie_point(A,B,p,P):
     res = (math.pow(P.x, 3) + A*P.x + B)%p
@@ -52,7 +57,7 @@ def groupe_des_points(A,B,p):
             P = Point(x,y,1)
             appartient = verifie_point(A, B, p, P)
             if appartient : total += 1
-            print("{} => {}".format(P.toString, appartient))
+            print("{} => {}".format(P.toString(), appartient))
     print("Pour X^3 + {}X + {} de groupe Z{} il y a {} element(s)".format(A, B, p, total))
     
 
@@ -79,8 +84,13 @@ print("{} => {}".format(P.toString(), verifie_point(3,2,5,P)))
 P = Point(2,2,1)
 print("{} => {}".format(P.toString(), verifie_point(3,2,5,P)))
 
-print("\nFonction groupe_des_points :")
-groupe_des_points(3,2,5)
+print("\nFonction addition_points :")
 P1 = Point(2,1,1)
 Q1 = Point(2,4,1)
-print(addition_points(3,2,5,P1,Q1))
+point = Point(1,1,1)
+#addition_points(3,2,5,P1,Q1)
+#print(point.toString())
+
+print("\nFonction groupe_des_points :")
+groupe_des_points(3,2,5)
+groupe_des_points(1,2,11)
