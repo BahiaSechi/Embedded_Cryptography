@@ -13,9 +13,7 @@ class Point:
         self.z = z
 
     def toString(self):
-        toto =""
-        toto = "[{},{},{}]".format(self.x,self.y,self.z)
-        return toto
+        return "[{},{},{}]".format(self.x,self.y,self.z)
 
 #p = Point(1,2,3)
 #print(p.toString())
@@ -52,8 +50,8 @@ def addition_points(A, B, p, P, Q):
 
 def groupe_des_points(A,B,p):
     total = 0
-    for x in range(p):
-        for y in range(p):
+    for x in range(p+1):
+        for y in range(p+1):
             P = Point(x,y,1)
             appartient = verifie_point(A, B, p, P)
             if appartient : total += 1
@@ -92,8 +90,8 @@ p = 5
 P1 = Point(2,1,1)
 Q1 = Point(2,4,1)
 point_infini = Point(0,0,0)
-
 print(addition_points(A,B,p,P1,Q1))
+
 print("\nFonction groupe_des_points :")
 groupe_des_points(3,2,5)
 groupe_des_points(1,2,11)
