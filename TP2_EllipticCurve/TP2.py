@@ -5,13 +5,15 @@
 import math  
 
 class Point:
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.x = x
         self.y = y
+        self.z = z
 
 def verifie_point(A,B,p,P):
-    res = math.sqrt(math.pow(P.x, A) + P.x + B)
-    return res == P.y
+    res = (math.pow(P.x, 3) + A*P.x + B)%p
+    #print(res, math.pow(P.y, 2))
+    return (res == P.y) or (P.z == 0)
 
 
 def addition_points(A, B, p, P, Q):
@@ -34,6 +36,6 @@ def generateurs(A, B, p):
 def double_and_add(A,B,p,P,k):
     print("hey")
 
-P = Point(2, 1)
+P = Point(0,0,0)
 
-print(verifie_point(3,2,3,P))
+print(verifie_point(3,2,5,P))
