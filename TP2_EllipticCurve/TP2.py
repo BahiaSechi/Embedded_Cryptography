@@ -20,9 +20,9 @@ class Point:
 
 
 def verifie_point(A, B, p, P):
-    res = (math.pow(P.x, 3) + A * P.x + B) % p
-    # print(res, math.pow(P.y, 2))
-    return (res == P.y) or (P.z == 0)
+    res = (math.pow(P.x, 3) + A * P.x + B)
+    #print(res, math.pow(P.y, 2))
+    return (res%p == (math.pow(P.y, 2)%p) or (P.z == 0))
 
 
 def addition_points(A, B, p, P, Q):
@@ -50,14 +50,14 @@ def addition_points(A, B, p, P, Q):
             return Point(X, Y, 1).__dict__
 
 def groupe_des_points(A,B,p):
-    total = 0
-    for x in range(p+1):
-        for y in range(p+1):
+    points = []
+    points.append(Point(0,0,0))
+    for x in range(p):
+        for y in range(p):
             P = Point(x,y,1)
             appartient = verifie_point(A, B, p, P)
-            if appartient : total += 1
-            print("{} => {}".format(P.toString(), appartient))
-    print("Pour X^3 + {}X + {} de groupe Z{} il y a {} element(s)".format(A, B, p, total))
+            if appartient : points.append(P)
+    print("Pour X^3 + {}X + {} de groupe Z{} il y a {} element(s)".format(A, B, p, len(points)))
     
 
 
