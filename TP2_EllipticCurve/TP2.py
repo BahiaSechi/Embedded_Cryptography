@@ -30,26 +30,26 @@ def addition_points(A, B, p, P, Q):
     point_infini = Point(0, 0, 0)
 
     if P.x == 0 and P.y == 0:
-        return Q.toString()
+        return Q
     if Q.x == 0 and Q.y == 0:
-        return P.toString()
+        return P
 
     if P != Q:
         if P.x == Q.x:
-            return point_infini.toString()
+            return point_infini
         elif P.x != Q.x:
             lamb = ((Q.y - P.y) * number.inverse((Q.x - P.x), p)) % p
             X = ((lamb ** 2) - P.x - Q.x) % p
             Y = (lamb * (P.x - X) - P.y) % p
-            return Point(X, Y, 1).toString()
+            return Point(X, Y, 1)
     elif P == Q:
         if P.y == 0:
-            return point_infini.toString()
+            return point_infini
         elif P.y != 0:
             lamb = ((3 * (P.x ** 2) + A) * number.inverse((2 * P.y), p)) % p
             X = ((lamb ** 2) - (2 * P.x)) % p
             Y = ((lamb * (P.x - X)) - P.y) % p
-            return Point(X, Y, 1).toString()
+            return Point(X, Y, 1)
 
 
 def groupe_des_points(A, B, p):
@@ -65,7 +65,7 @@ def groupe_des_points(A, B, p):
 
 def ordre_point(A, B, p, P):
     point_infini = Point(0, 0, 0)
-    X = P
+    X = Point(P.x,P.y,P.z)
     c = 1
     while X != point_infini:
         X = addition_points(A, B, p, X, P)
@@ -75,8 +75,12 @@ def ordre_point(A, B, p, P):
 
 def generateurs(A, B, p):
     groupe = groupe_des_points(A, B, p)
-    for P in groupe:
-        ordre_point(A, B, p, P)
+    generateurs = []
+    for P in groupe: # pas de generateur => groupe pas cyclique
+        if (ordre_point(A, B, p, P) == p):
+            generateurs.append(P)
+        #print("{} => {}".format(P.toString(), ordre_point(A, B, p, P)))
+    return generateurs
 
 
 
@@ -101,40 +105,37 @@ print("\nFonction addition_points :")
 
 P = Point(2, 1, 1)
 Q = Point(2, 4, 1)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 P = Point(2, 1, 1)
 Q = Point(2, 1, 1)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 P = Point(2, 1, 1)
 Q = Point(0, 0, 0)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 P = Point(2, 1, 1)
 Q = Point(1, 1, 1)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 P = Point(2, 1, 1)
 Q = Point(1, 4, 1)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 P = Point(1, 4, 1)
 Q = Point(1, 4, 1)
-print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
+print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
 print("\nFonction groupe_des_points :")
 groupe_des_points(A, B, p)
 groupe_des_points(1, 2, 11)
 
-print("\nFonction groupe_des_points :")
-A1 = 3
-B1 = 2
+print("\nFonction generateur :")
 A2 = 1
 B2 = 2 
-p1 = 5
 p2 = 11
-generateurs(A1, B1, p1)
+generateurs(A, B, p)
 generateurs(A2, B2, p2)
 
 print("\n")
