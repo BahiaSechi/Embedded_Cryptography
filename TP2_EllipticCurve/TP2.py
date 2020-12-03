@@ -60,6 +60,7 @@ def groupe_des_points(A, B, p):
             appartient = verifie_point(A, B, p, P)
             if appartient: points.append(P)
     print("Pour X^3 + {}X + {} de groupe Z{} il y a {} element(s)".format(A, B, p, len(points)))
+    return points
 
 
 def ordre_point(A, B, p, P):
@@ -67,7 +68,10 @@ def ordre_point(A, B, p, P):
 
 
 def generateurs(A, B, p):
-    print("hey")
+    groupe = groupe_des_points(A, B, p)
+    for P in groupe:
+        ordre_point(A, B, p, P)
+
 
 
 def double_and_add(A, B, p, P, k):
@@ -116,3 +120,15 @@ print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p,
 print("\nFonction groupe_des_points :")
 groupe_des_points(3, 2, 5)
 groupe_des_points(1, 2, 11)
+
+print("\nFonction groupe_des_points :")
+A1 = 3
+B1 = 2
+A2 = 1
+B2 = 2 
+p1 = 5
+p2 = 11
+generateurs(A1, B1, p1)
+generateurs(A2, B2, p2)
+
+print("\n")
