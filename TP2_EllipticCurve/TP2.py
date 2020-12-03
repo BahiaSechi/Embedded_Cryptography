@@ -63,7 +63,13 @@ def groupe_des_points(A, B, p):
 
 
 def ordre_point(A, B, p, P):
-    print("hey")
+    point_infini = Point(0, 0, 0)
+    X = P
+    c = 1
+    while X != point_infini:
+        X = addition_points(A, B, p, X, P)
+        c = c + 1
+    return c
 
 
 def generateurs(A, B, p):
@@ -74,20 +80,20 @@ def double_and_add(A, B, p, P, k):
     print("hey")
 
 
-# Verification première fonction :
-print("\nFonction verifier_point :")
-P = Point(0, 0, 0)
-print("{} => {}".format(P.toString(), verifie_point(3, 2, 5, P)))
-P = Point(2, 1, 1)
-print("{} => {}".format(P.toString(), verifie_point(3, 2, 5, P)))
-P = Point(2, 2, 1)
-print("{} => {}".format(P.toString(), verifie_point(3, 2, 5, P)))
-
-print("\nFonction addition_points :")
-
 A = 3
 B = 2
 p = 5
+
+# Verification première fonction :
+print("\nFonction verifier_point :")
+P = Point(0, 0, 0)
+print("{} => {}".format(P.toString(), verifie_point(A, B, p, P)))
+P = Point(2, 1, 1)
+print("{} => {}".format(P.toString(), verifie_point(A, B, p, P)))
+P = Point(2, 2, 1)
+print("{} => {}".format(P.toString(), verifie_point(A, B, p, P)))
+
+print("\nFonction addition_points :")
 
 P = Point(2, 1, 1)
 Q = Point(2, 4, 1)
@@ -114,5 +120,5 @@ Q = Point(1, 4, 1)
 print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q)))
 
 print("\nFonction groupe_des_points :")
-groupe_des_points(3, 2, 5)
+groupe_des_points(A, B, p)
 groupe_des_points(1, 2, 11)
