@@ -65,7 +65,7 @@ def groupe_des_points(A, B, p):
 
 def ordre_point(A, B, p, P):
     point_infini = Point(0, 0, 0)
-    X = Point(P.x,P.y,P.z)
+    X = Point(P.x, P.y, P.z)
     c = 1
     while X != point_infini:
         X = addition_points(A, B, p, X, P)
@@ -76,16 +76,21 @@ def ordre_point(A, B, p, P):
 def generateurs(A, B, p):
     groupe = groupe_des_points(A, B, p)
     generateurs = []
-    for P in groupe: # pas de generateur => groupe pas cyclique
-        if (ordre_point(A, B, p, P) == p):
+    for P in groupe:  # pas de generateur => groupe pas cyclique
+        if ordre_point(A, B, p, P) == p:
             generateurs.append(P)
-        #print("{} => {}".format(P.toString(), ordre_point(A, B, p, P)))
+        # print("{} => {}".format(P.toString(), ordre_point(A, B, p, P)))
     return generateurs
 
 
-
 def double_and_add(A, B, p, P, k):
-    print("hey")
+    Q = Point(0, 0, 0)
+    n = int(math.log(k, 2)) + 1
+    for i in range(n, -1, -1):
+        Q = addition_points(A, B, p, Q, Q)
+        if (k >> i) & 1 == i:
+            Q = addition_points(A, B, p, Q, P)
+    return Q
 
 
 A = 3
@@ -127,15 +132,21 @@ P = Point(1, 4, 1)
 Q = Point(1, 4, 1)
 print("{} + {} = {}".format(P.toString(), Q.toString(), addition_points(A, B, p, P, Q).toString()))
 
+A2 = 1
+B2 = 2
+p2 = 11
+
 print("\nFonction groupe_des_points :")
 groupe_des_points(A, B, p)
-groupe_des_points(1, 2, 11)
+groupe_des_points(A2, B2, p2)
 
 print("\nFonction generateur :")
-A2 = 1
-B2 = 2 
-p2 = 11
 generateurs(A, B, p)
 generateurs(A2, B2, p2)
 
 print("\n")
+
+print("\nFonction Double and Add :")
+P = Point(2,4,1)
+for k in range (5,10):
+    print(double_and_add(A,B,p,P,k).toString())
