@@ -39,7 +39,11 @@ def ecdh(A, B, p, P):
 
 
 def ecdsa(A, B, p, P, n, m, a):
-    return
+    k = random.randint(1, n-1)
+    K = utils.Point(k*P.x, k*P.y, 1)
+    t = K.x
+    s = (m+a*t)*number.inverse(k, n) % n
+    return utils.Point(t,s,1)
 
 
 def ecdsa_verif(A, B, p, P, n, m, A1, sign):
@@ -55,3 +59,6 @@ def attack():
 # Théorème de Hasse
 print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
 # on peut voire que l'affichage dans le terminale ne permet pas la comparaison, comme les bornes sont arrondi on ne peut pas faire la comparaison.
+
+# Fonction de chiffrement ECDSA :
+print
