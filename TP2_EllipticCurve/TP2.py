@@ -141,7 +141,10 @@ groupe_des_points(A, B, p)
 groupe_des_points(A2, B2, p2)
 
 print("\nFonction generateur :")
-generateurs(A, B, p)
+A2 = 1
+B2 = 2 
+p2 = 11
+print("Il y a {} generateurs dans E1 generateurs(A, B, p)
 generateurs(A2, B2, p2)
 
 print("\n")
