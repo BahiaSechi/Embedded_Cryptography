@@ -2,6 +2,9 @@
 # PRUNIER Bastien
 # SECHI Bahia
 
+from Crypto.Util import number
+
+
 class Point:
     def __init__(self, x, y, z):
         self.x = x
