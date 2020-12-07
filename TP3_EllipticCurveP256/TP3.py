@@ -14,9 +14,13 @@ Gy = int('4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5', 16)
 
 
 def test_hasse(n, p):
+    print(p)
     borneInf = p + 1 - math.sqrt(p)
+    print(borneInf)
     borneSup = p + 1 + math.sqrt(p)
-    return n >= borneInf and n <= borneSup
+    print(borneSup)
+    print(n)
+    return borneInf <= n <= borneSup
 
 
 def ecdh(A, B, p, P):
@@ -37,4 +41,6 @@ def attack():
 
 
 # TESTS :
-# Théoreme de hasse
+# Théorème de Hasse
+print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
+# on peut voire que l'affichage dans le terminale ne permet pas la comparaison, comme les bornes sont arrondi on ne peut pas faire la comparaison.
