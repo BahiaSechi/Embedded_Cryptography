@@ -11,6 +11,7 @@ import utils
 # P256 Elliptic Curve defined in FIPS 186-4
 p = 115792089210356248762697446949407573530086143415290314195533631308867097853951
 n = 115792089210356248762697446949407573529996955224135760342422259061068512044369
+A = -3
 B = int('5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b', 16)
 Gx = int('6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296', 16)
 Gy = int('4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5', 16)
@@ -41,7 +42,9 @@ def ecdh():
 
 def ecdsa(A, B, p, P, n, m, a):
     k = random.randint(1, n-1)
-    K = utils.Point(k*P.x, k*P.y, 1)
+    K = utils.Point(P.x, P.y, 1)
+    for iterator in range(k):
+        K = utils.addition_points(A, B, n, K, P)
     t = K.x
     s = (m+a*t)*number.inverse(k, n) % n
     return utils.Point(t,s,1)
@@ -67,4 +70,4 @@ print(ecdh())
 
 
 # Fonction de chiffrement ECDSA :
-print
+print(ecdsa(A,B,p,G,n,"Je suis le message", 1))
