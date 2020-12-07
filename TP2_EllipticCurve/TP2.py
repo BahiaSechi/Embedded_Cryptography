@@ -144,8 +144,12 @@ print("\nFonction generateur :")
 A2 = 1
 B2 = 2 
 p2 = 11
-print("Il y a {} generateurs dans E1".format(generateurs(A, B, p)))
-print("Il y a {} generateurs dans E2".format(generateurs(A2, B2, p2)))
+e1 = generateurs(A, B, p)
+e2 = generateurs(A2, B2, p2)
+for g in range(len(e1)):
+    print("Generateur de E1 : {}".format(e1[g].toString()))
+for g in range(len(e2)):
+    print("Generateur de E2 : {}".format(e2[g].toString()))
 
 
 print("\n")
