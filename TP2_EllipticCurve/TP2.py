@@ -144,8 +144,9 @@ print("\nFonction generateur :")
 A2 = 1
 B2 = 2 
 p2 = 11
-print("Il y a {} generateurs dans E1 generateurs(A, B, p)
-generateurs(A2, B2, p2)
+print("Il y a {} generateurs dans E1".format(generateurs(A, B, p)))
+print("Il y a {} generateurs dans E2".format(generateurs(A2, B2, p2)))
+
 
 print("\n")
 
