@@ -2,8 +2,8 @@
 # PRUNIER Bastien
 # SECHI Bahia
 
-from Crypto.Hash import SHA256
 from Crypto.Util import number
+from Crypto.Hash import SHA256
 import math
 import random
 import utils
@@ -27,12 +27,18 @@ def test_hasse(n, p):
     return borneInf <= n <= borneSup
 
 
-def ecdh():
+def ecdh(A, B, p, P):
     a = random.randint(1, n)
     b = random.randint(1, n)
-    if utils.Point(a * G.x, a * G.y, a * G.z) != utils.Point(b * G.x, b * G.y, b * G.z):
+    gA = utils.Point(a * G.x, a * G.y, a * G.z)
+    gB = utils.Point(b * G.x, b * G.y, b * G.z)
+
+    print(gA.toString())
+    print(gB.toString())
+
+    if utils.addition_points(A,B,p,gA,gA) != utils.addition_points(A,B,p,gB,gB):
         return False
-    elif utils.Point(a * G.x, a * G.y, a * G.z) == utils.Point(b * G.x, b * G.y, b * G.z):
+    elif utils.addition_points(A,B,p,gA,gA) == utils.addition_points(A,B,p,gB,gB):
         x = SHA256.new()
         x.update(number.long_to_bytes((a * G.x)))
         x.hexdigest()
@@ -63,8 +69,8 @@ print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
 
 # ECDH
 print("\nECDH")
-print(ecdh())
+print(ecdh(-3,B,p,utils.Point(1,1,1)))
 
 
 # Fonction de chiffrement ECDSA :
-print
+print("\nECDSA")
