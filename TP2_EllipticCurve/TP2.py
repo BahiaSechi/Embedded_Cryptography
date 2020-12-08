@@ -150,9 +150,7 @@ for g in range(len(e1)):
     print("Generateur de E1 : {}".format(e1[g].toString()))
 for g in range(len(e2)):
     print("Generateur de E2 : {}".format(e2[g].toString()))
-
-
-print("\n")
+print("Pour rappel, un groupe n'est pas cyclique quand il n'a pas de generateurs.")
 
 print("\nFonction Double and Add :")
 P = Point(2,4,1)

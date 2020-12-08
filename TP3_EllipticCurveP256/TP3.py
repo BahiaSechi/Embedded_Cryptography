@@ -47,7 +47,6 @@ def ecdh(A, B, p, P):
         return False
 
 
-
 def ecdsa(A, B, p, P, n, m, a):
     k = random.randint(1, n - 1)
     K = utils.Point(P.x, P.y, 1)
@@ -78,4 +77,4 @@ print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 
 # Fonction de chiffrement ECDSA :
 print("\nECDSA")
-#print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
+# print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
