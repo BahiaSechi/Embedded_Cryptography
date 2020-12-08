@@ -7,6 +7,7 @@ from Crypto.Hash import SHA256
 import math
 import random
 import utils
+from Crypto.Util.number import bytes_to_long 
 
 # P256 Elliptic Curve defined in FIPS 186-4
 p = 115792089210356248762697446949407573530086143415290314195533631308867097853951
@@ -47,7 +48,6 @@ def ecdh(A, B, p, P):
         return False
 
 
-
 def ecdsa(A, B, p, P, n, m, a):
     #k = random.randint(1, n - 1)
     k = 5
@@ -55,10 +55,11 @@ def ecdsa(A, B, p, P, n, m, a):
     K = utils.double_and_add(A, B, p, K, k)
     t = K.x
     print('t => {}'.format(t))
-    print('m => {}'.format(m))
-    s = (bytes_to_long(string_to_bytes(m)) + a * t) * number.inverse(k, n) % n
+    b = m.encode('utf-8')    
+
+    s = (bytes_to_long(b) + a * t) * number.inverse(k, n) % n
     print('s => {}'.format(s))
-    return utils.Point(t, s, 1)
+    return a
 
 
 def ecdsa_verif(A, B, p, P, n, m, A1, sign):
