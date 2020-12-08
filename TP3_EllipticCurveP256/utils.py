@@ -3,7 +3,7 @@
 # SECHI Bahia
 
 from Crypto.Util import number
-
+import math
 
 class Point:
     def __init__(self, x, y, z):
@@ -43,3 +43,13 @@ def addition_points(A, B, p, P, Q):
             X = ((lamb ** 2) - (2 * P.x)) % p
             Y = ((lamb * (P.x - X)) - P.y) % p
             return Point(X, Y, 1)
+
+
+def double_and_add(A, B, p, P, k):
+    Q = Point(0, 0, 0)
+    n = int(math.log(k, 2)) + 1
+    for i in range(n, -1, -1):
+        Q = addition_points(A, B, p, Q, Q)
+        if (k >> i) & 1 == 1:
+            Q = addition_points(A, B, p, Q, P)
+    return Q

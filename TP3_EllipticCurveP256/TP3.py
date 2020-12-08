@@ -37,9 +37,9 @@ def ecdh(A, B, p, P):
     print(gA.toString())
     print(gB.toString())
 
-    if utils.addition_points(A,B,p,gA,gA) != utils.addition_points(A,B,p,gB,gB):
+    if utils.double_and_add(A,B,p,P,a != utils.double_and_add(A,B,p,P,b)):
         return False
-    elif utils.addition_points(A,B,p,gA,gA) == utils.addition_points(A,B,p,gB,gB):
+    elif utils.double_and_add(A,B,p,P,a == utils.double_and_add(A,B,p,P,b)):
         x = SHA256.new()
         x.update(number.long_to_bytes((a * G.x)))
         x.hexdigest()
@@ -68,11 +68,11 @@ def attack():
 # TESTS :
 # Théorème de Hasse
 print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
-# on peut voire que l'affichage dans le terminale ne permet pas la comparaison, comme les bornes sont arrondi on ne peut pas faire la comparaison.
+# On peut voir que l'affichage dans le terminale ne permet pas la comparaison, comme les bornes sont arrondies, on ne peut pas faire la comparaison.
 
 # ECDH
 print("\nECDH")
-print(ecdh(-3,B,p,utils.Point(1,1,1)))
+print(ecdh(-3,B,p,utils.Point(2,1,1)))
 
 
 # Fonction de chiffrement ECDSA :
