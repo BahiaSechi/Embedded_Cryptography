@@ -88,7 +88,7 @@ def double_and_add(A, B, p, P, k):
     n = int(math.log(k, 2)) + 1
     for i in range(n, -1, -1):
         Q = addition_points(A, B, p, Q, Q)
-        if (k >> i) & 1 == i:
+        if (k >> i) & 1 == 1:
             Q = addition_points(A, B, p, Q, P)
     return Q
 
@@ -156,5 +156,5 @@ print("\n")
 
 print("\nFonction Double and Add :")
 P = Point(2,4,1)
-for k in range (5,10):
+for k in range (5,11):
     print(double_and_add(A,B,p,P,k).toString())
