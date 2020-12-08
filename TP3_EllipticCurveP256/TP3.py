@@ -49,8 +49,7 @@ def ecdh(A, B, p, P):
 def ecdsa(A, B, p, P, n, m, a):
     k = random.randint(1, n-1)
     K = utils.Point(P.x, P.y, 1)
-    for iterator in range(k):
-        K = utils.addition_points(A, B, n, K, P)
+    K = utils.addition_points(A, B, n, K, P)
     t = K.x
     s = (m+a*t)*number.inverse(k, n) % n
     return utils.Point(t,s,1)
