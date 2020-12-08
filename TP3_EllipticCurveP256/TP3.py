@@ -31,29 +31,24 @@ def test_hasse(n, p):
 def ecdh(A, B, p, P):
     a = random.randint(1, n)
     b = random.randint(1, n)
-    gA = utils.Point(a * G.x, a * G.y, a * G.z)
-    gB = utils.Point(b * G.x, b * G.y, b * G.z)
 
-    print(gA.toString())
-    print(gB.toString())
-
-    if utils.double_and_add(A,B,p,P,a != utils.double_and_add(A,B,p,P,b)):
+    if utils.double_and_add(A, B, p, P, a != utils.double_and_add(A, B, p, P, b)):
         return False
-    elif utils.double_and_add(A,B,p,P,a == utils.double_and_add(A,B,p,P,b)):
+    elif utils.double_and_add(A, B, p, P, a == utils.double_and_add(A, B, p, P, b)):
         x = SHA256.new()
-        x.update(number.long_to_bytes((a * G.x)))
+        x.update(number.long_to_bytes((a * b * G.x)))
         x.hexdigest()
         return x.digest().hex()
 
 
 def ecdsa(A, B, p, P, n, m, a):
-    k = random.randint(1, n-1)
+    k = random.randint(1, n - 1)
     K = utils.Point(P.x, P.y, 1)
     for iterator in range(k):
         K = utils.addition_points(A, B, n, K, P)
     t = K.x
-    s = (m+a*t)*number.inverse(k, n) % n
-    return utils.Point(t,s,1)
+    s = (m + a * t) * number.inverse(k, n) % n
+    return utils.Point(t, s, 1)
 
 
 def ecdsa_verif(A, B, p, P, n, m, A1, sign):
@@ -72,9 +67,9 @@ print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
 
 # ECDH
 print("\nECDH")
-print(ecdh(-3,B,p,utils.Point(2,1,1)))
-
+while not ecdh(-3, B, p, utils.Point(2, 1, 1)):
+    print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 
 # Fonction de chiffrement ECDSA :
 print("\nECDSA")
-print(ecdsa(A,B,p,G,n,"Je suis le message", 1))
+print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
