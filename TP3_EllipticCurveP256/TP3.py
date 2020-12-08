@@ -49,11 +49,15 @@ def ecdh(A, B, p, P):
 
 
 def ecdsa(A, B, p, P, n, m, a):
-    k = random.randint(1, n - 1)
+    #k = random.randint(1, n - 1)
+    k = 5
     K = utils.Point(P.x, P.y, 1)
     K = utils.double_and_add(A, B, p, K, k)
     t = K.x
-    s = (m + a * t) * number.inverse(k, n) % n
+    print('t => {}'.format(t))
+    print('m => {}'.format(m))
+    s = (bytes_to_long(string_to_bytes(m)) + a * t) * number.inverse(k, n) % n
+    print('s => {}'.format(s))
     return utils.Point(t, s, 1)
 
 
@@ -77,4 +81,4 @@ print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 
 # Fonction de chiffrement ECDSA :
 print("\nECDSA")
-print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
+ecdsa(A, B, p, G, n, "Test", 6)
