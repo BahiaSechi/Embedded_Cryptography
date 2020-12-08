@@ -32,13 +32,20 @@ def ecdh(A, B, p, P):
     a = random.randint(1, n)
     b = random.randint(1, n)
 
-    if utils.double_and_add(A, B, p, P, a != utils.double_and_add(A, B, p, P, b)):
-        return False
-    elif utils.double_and_add(A, B, p, P, a == utils.double_and_add(A, B, p, P, b)):
+    aP = utils.double_and_add(A, B, p, P, a)
+    bP = utils.double_and_add(A, B, p, P, b)
+
+    aBG = utils.double_and_add(A, B, p, bP, a)
+    bAG = utils.double_and_add(A, B, p, aP, b)
+
+    if aBG == bAG:
         x = SHA256.new()
         x.update(number.long_to_bytes((a * b * G.x)))
         x.hexdigest()
         return x.digest().hex()
+    elif aBG != bAG:
+        return False
+
 
 
 def ecdsa(A, B, p, P, n, m, a):
@@ -67,9 +74,8 @@ print("La courbe respecte le théorème de Hasse : {}".format(test_hasse(n, p)))
 
 # ECDH
 print("\nECDH")
-while not ecdh(-3, B, p, utils.Point(2, 1, 1)):
-    print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
+print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 
 # Fonction de chiffrement ECDSA :
 print("\nECDSA")
-print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
+#print(ecdsa(A, B, p, G, n, "Je suis le message", 1))
