@@ -51,15 +51,26 @@ def ecdh(A, B, p, P):
 def ecdsa(A, B, p, P, n, m, a):
     #k = random.randint(1, n - 1)
     k = 5
+
+    # Public key
+    H = utils.double_and_add(A, B, p, P, a)
+
+    # K
     K = utils.Point(P.x, P.y, 1)
     K = utils.double_and_add(A, B, p, K, k)
-    t = K.x
+    t = K.x % n
     print('t => {}'.format(t))
+    
+    # message Hash
     b = m.encode('utf-8')
+    hash = SHA256.new()
+    hash.update(b)
 
-    s = ((bytes_to_long(b) + (a * t)) * number.inverse(k, n)) % n
+    # Signature
+    s = ((bytes_to_long(hash.digest()) + (a * t)) * number.inverse(k, n)) % n
     print('s => {}'.format(s))
-    return a
+
+    return t, s, H
 
 
 def ecdsa_verif(A, B, p, P, n, m, A1, sign):
