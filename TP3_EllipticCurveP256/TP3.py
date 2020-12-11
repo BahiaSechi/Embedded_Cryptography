@@ -101,4 +101,4 @@ print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 print("\nECDSA")
 t, s, A1, m = ecdsa(A, B, p, G, n, "Test", 6)
 
-print(ecdsa_verif(A, B, p, G, n, m, A1, t, s))
+print('ECDSA Verif => {}'.format(ecdsa_verif(A, B, p, G, n, m, A1, t, s)))
