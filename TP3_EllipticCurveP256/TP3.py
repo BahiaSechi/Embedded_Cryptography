@@ -7,7 +7,7 @@ from Crypto.Hash import SHA256
 import math
 import random
 import utils
-from Crypto.Util.number import bytes_to_long 
+from Crypto.Util.number import bytes_to_long
 
 # P256 Elliptic Curve defined in FIPS 186-4
 p = 115792089210356248762697446949407573530086143415290314195533631308867097853951
@@ -49,7 +49,6 @@ def ecdh(A, B, p, P):
 
 
 def ecdsa(A, B, p, P, n, m, a):
-    #k = random.randint(1, n - 1)
     k = 5
 
     # Public key
@@ -60,7 +59,7 @@ def ecdsa(A, B, p, P, n, m, a):
     K = utils.double_and_add(A, B, p, K, k)
     t = K.x % n
     print('t => {}'.format(t))
-    
+
     # message Hash
     b = m.encode('utf-8')
     hash = SHA256.new()
@@ -70,11 +69,18 @@ def ecdsa(A, B, p, P, n, m, a):
     s = ((bytes_to_long(hash.digest()) + (a * t)) * number.inverse(k, n)) % n
     print('s => {}'.format(s))
 
-    return t, s, H
+    return t, s, H, hash
 
 
-def ecdsa_verif(A, B, p, P, n, m, A1, sign):
-    return
+def ecdsa_verif(A, B, p, P, n, m, A1, t, s):
+    if 1 <= t <= n-1 and 1 <= s <= n-1:
+        Y = utils.double_and_add(A, B, p, P, bytes_to_long(m.digest()) * number.inverse(s, n))
+        Z = utils.double_and_add(A, B, p, A1, t * number.inverse(s, n))
+        Q = utils.addition_points(A, B, p, Y, Z)
+        if Q.x % n == t:
+            return True
+        else:
+            return False
 
 
 # BONUS
@@ -93,4 +99,6 @@ print(ecdh(-3, B, p, utils.Point(2, 1, 1)))
 
 # Fonction de chiffrement ECDSA :
 print("\nECDSA")
-ecdsa(A, B, p, G, n, "Test", 6)
+t, s, A1, m = ecdsa(A, B, p, G, n, "Test", 6)
+
+print(ecdsa_verif(A, B, p, G, n, m, A1, t, s))
