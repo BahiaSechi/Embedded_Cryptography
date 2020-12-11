@@ -55,9 +55,9 @@ def ecdsa(A, B, p, P, n, m, a):
     K = utils.double_and_add(A, B, p, K, k)
     t = K.x
     print('t => {}'.format(t))
-    b = m.encode('utf-8')    
+    b = m.encode('utf-8')
 
-    s = (bytes_to_long(b) + a * t) * number.inverse(k, n) % n
+    s = ((bytes_to_long(b) + (a * t)) * number.inverse(k, n)) % n
     print('s => {}'.format(s))
     return a
 
