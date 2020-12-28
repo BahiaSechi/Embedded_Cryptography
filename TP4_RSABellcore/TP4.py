@@ -5,9 +5,31 @@
 from Crypto.Util import number
 import math
 
-def generer_cle_RSA(n):
-    return
+import random
+#p ; q premier
+#N=p*q
+#e entier premier 
+#φ(N) = (p−1)(q−1)
+#d = e^(-1) modulo φ(N)
+#Clé privée (p,q,d) 
 
+
+#Cle publique (N,e)
+#pK=(N,e)
+#sK=(p,q,d)
+#p et q entier premier de n bits 
+n=1024
+
+def generer_cle_RSA(n):
+    # Generation of two 1024bits prime number and N processing
+    p = number.getStrongPrime(n)
+    q = number.getStrongPrime(n)
+    N = p*q
+
+    phiN = (p-1)*(q-1)
+    e=2
+    while math.gcd() != 1 :
+        e=random.randint(50000,1000000000000)
 
 def generer_cle_RSA_CRT(N, e, p, q, d):
     dp = d % (p-1)
