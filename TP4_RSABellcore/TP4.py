@@ -37,6 +37,11 @@ def generer_cle_RSA_CRT(N, e, p, q, d):
     ip = number.inverse(p, q) % q
     iq = number.inverse(q, p) % p
     return N, e, p, q, d, dp, dq, ip, iq
+print(generer_cle_RSA(n))
+    return e
+    #pK
+    #print(e)
+
 
 
 def signature_RSA_CRT(N, m, p, q, dp, dq):
